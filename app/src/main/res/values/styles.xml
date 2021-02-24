@@ -14,4 +14,8 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="SplashScreenTheme" parent = "Theme.AvengersApp">
+    <item name="android:windowBackground">@drawable/launcher_screen_with_logo</item>
+</style>
 </resources>

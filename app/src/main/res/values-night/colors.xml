@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">@color/secondary</color>
     <color name="colorAccent">@color/purple</color>
 
-    <color name="purple">#614AD9</color>
-    <color name="secondary">#EFECFB</color>
+    <color name="purple">#543DCC</color>
+    <color name="secondary">#2C2446</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

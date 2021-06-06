@@ -18,17 +18,10 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by inject()
 
     private val resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
-        //TODO Borrar si no sirve
-        val data: Intent? = result.data
         if (result.resultCode == Activity.RESULT_OK) {
             viewModel.handleSuccessLogin()
         } else {
-            //TODO handle error login
-            viewModel.handleFailedLogin()
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-            // ...
+            viewModel.handleFailedLogin(getString(R.string.login_error_message))
         }
     }
 

@@ -8,3 +8,7 @@ data class ServerError(
     @SerializedName("message") var message: String = "",
     @SerializedName("extra") var extra: Map<String, Any>? = null
 ): Serializable
+
+enum class ServerErrorCode constructor(val value: Long) {
+    InvalidGeneric(13)
+}

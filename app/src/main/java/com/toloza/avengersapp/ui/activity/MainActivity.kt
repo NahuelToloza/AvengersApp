@@ -5,16 +5,37 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
-import com.google.firebase.auth.FirebaseAuth
+import androidx.lifecycle.Observer
 import com.toloza.avengersapp.R
+import com.toloza.avengersapp.data.login.LoginBuilder
+import com.toloza.avengersapp.ui.viewmodel.MainUiModel
 import com.toloza.avengersapp.ui.viewmodel.MainViewModel
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by inject()
+
+    private val resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        //TODO Borrar si no sirve
+        val data: Intent? = result.data
+        if (result.resultCode == Activity.RESULT_OK) {
+            viewModel.handleSuccessLogin()
+        } else {
+            //TODO handle error login
+            viewModel.handleFailedLogin()
+            // Sign in failed. If response is null the user canceled the
+            // sign-in flow using the back button. Otherwise check
+            // response.getError().getErrorCode() and handle the error.
+            // ...
+        }
+    }
+
+    private val uiModelObserver = Observer<MainUiModel> {
+        it.launchLogin?.consume()?.let { loginBuilder -> launchLogin(loginBuilder) }
+        it.continueWithFlow?.consume()?.let { continueWithFlow() }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,48 +43,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewModel.setUpUserInformation()
-
-        // Choose authentication providers
-        val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.FacebookBuilder().build()
-        )
-
-        // Create and launch sign-in intent
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .setTheme(R.style.Theme_AvengersApp)
-                .build(),
-            SIGN_IN_CODE
-        )
+        viewModel.uiModel.observe(this, uiModelObserver)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun launchLogin(loginBuilder: LoginBuilder) {
+        val intent = loginBuilder.build()
+        resultLauncher.launch(intent)
+    }
 
-        //TODO
-        if (requestCode == SIGN_IN_CODE) {
-            val response = IdpResponse.fromResultIntent(data)
-            if (resultCode == Activity.RESULT_OK) {
-                // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
-                Log.d("Email pepe", user?.email ?: "")
-                Log.d("Nombre pepe", user?.displayName ?: "")
-                // ...
-            } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
-            }
-        }
+    private fun continueWithFlow() {
+        //TODO CONTINUAR COMO DEBERIA
+        Log.d("continueWithFlow", "Si papaaaaaa")
     }
 
     companion object {
-        private const val SIGN_IN_CODE = 738
-
         fun newIntent(context: Context): Intent {
             return Intent(context, MainActivity::class.java).apply {
 

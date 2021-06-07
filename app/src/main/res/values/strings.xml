@@ -4,5 +4,8 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fb1254289864968324</string>
 
     <!-- Login -->
-    <string name="login_error_message">Ocurrió un error al querer logearse</string>
+    <string name="login_error_message">Ups, there was a problem with the login</string>
+    <string name="toolbar_title">Marvel Challenge</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -8,8 +8,8 @@ import com.toloza.avengersapp.data.login.LoginManager
 import com.toloza.avengersapp.data.model.User
 import com.toloza.avengersapp.data.model.core.NullModel
 import com.toloza.avengersapp.service.repository.LoginRepository
-import com.toloza.avengersapp.ui.viewmodel.MainUiModel
-import com.toloza.avengersapp.ui.viewmodel.MainViewModel
+import com.toloza.avengersapp.ui.viewmodel.LoginUiModel
+import com.toloza.avengersapp.ui.viewmodel.LoginViewModel
 import com.toloza.avengersapp.util.Event
 import com.toloza.avengersapp.util.test.getOrAwaitValue
 import com.toloza.avengersapp.util.provideFakeCoroutinesDispatcherProvider
@@ -21,11 +21,11 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class MainViewModelTests {
+class LoginViewModelTests {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: LoginViewModel
 
     private lateinit var repository: LoginRepository
     private lateinit var dispatcherProvider: CoroutinesDispatcherProvider
@@ -37,7 +37,7 @@ class MainViewModelTests {
         dispatcherProvider = provideFakeCoroutinesDispatcherProvider()
         loginManager = mock()
 
-        viewModel = MainViewModel(
+        viewModel = LoginViewModel(
             repository = repository,
             dispatcherProvider = dispatcherProvider,
             loginManager = loginManager
@@ -51,7 +51,7 @@ class MainViewModelTests {
 
         viewModel.setUpUserInformation()
         val result = viewModel.uiModel.getOrAwaitValue()
-        val expected = MainUiModel(continueWithFlow = Event(NullModel()))
+        val expected = LoginUiModel(continueWithFlow = Event(NullModel()))
 
         Assert.assertEquals(expected, result)
     }

@@ -15,13 +15,13 @@ import com.toloza.avengersapp.util.Event
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(
+class LoginViewModel(
     private val repository: LoginRepository,
     private val dispatcherProvider: CoroutinesDispatcherProvider,
     private val loginManager: LoginManager
 ) : ViewModel() {
-    private val _uiModel = MutableLiveData<MainUiModel>()
-    val uiModel: LiveData<MainUiModel>
+    private val _uiModel = MutableLiveData<LoginUiModel>()
+    val uiModel: LiveData<LoginUiModel>
         get() = _uiModel
 
     fun setUpUserInformation() = viewModelScope.launch(dispatcherProvider.computation) {
@@ -35,6 +35,7 @@ class MainViewModel(
 
     fun handleSuccessLogin() = viewModelScope.launch(dispatcherProvider.computation) {
         repository.saveLocalUser(loginManager.getUser())
+        emitUiModel(continueWithFlow = Event(NullModel()))
     }
 
     fun handleFailedLogin(message: String) = viewModelScope.launch(dispatcherProvider.computation) {
@@ -46,7 +47,7 @@ class MainViewModel(
         continueWithFlow: Event<NullModel>? = null,
         showError: Event<ServerError>? = null
     ) = withContext(dispatcherProvider.main) {
-        _uiModel.value = MainUiModel(
+        _uiModel.value = LoginUiModel(
             launchLogin = launchLogin,
             continueWithFlow = continueWithFlow,
             showError = showError
@@ -54,7 +55,7 @@ class MainViewModel(
     }
 }
 
-data class MainUiModel(
+data class LoginUiModel(
     val launchLogin: Event<LoginBuilder>? = null,
     val continueWithFlow: Event<NullModel>? = null,
     val showError: Event<ServerError>? = null

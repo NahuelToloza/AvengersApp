@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.MainActivity"
+        <activity android:name=".ui.activity.LoginActivity"
             android:theme="@style/Theme.AvengersApp"
             android:screenOrientation="portrait"/>
     </application>

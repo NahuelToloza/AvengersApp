@@ -6,6 +6,8 @@
     <!-- Login -->
     <string name="login_error_message">Ups, there was a problem with the login</string>
     <string name="toolbar_title">Marvel Challenge</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Home -->
+    <string name="characters">Characters</string>
+    <string name="events">Events</string>
 </resources>

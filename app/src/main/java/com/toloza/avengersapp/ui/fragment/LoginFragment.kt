@@ -9,12 +9,15 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.toloza.avengersapp.R
 import com.toloza.avengersapp.data.login.LoginBuilder
+import com.toloza.avengersapp.ui.viewmodel.LoginCommunicationViewModel
 import com.toloza.avengersapp.ui.viewmodel.LoginUiModel
 import com.toloza.avengersapp.ui.viewmodel.LoginViewModel
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private val viewModel: LoginViewModel by inject()
+    private val communicationViewModel: LoginCommunicationViewModel by sharedViewModel()
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -42,7 +45,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         resultLauncher.launch(intent)
     }
 
-    private fun continueWithFlow() = view?.let {
-        findNavController().navigate(R.id.homeFragment)
+    private fun continueWithFlow() {
+        communicationViewModel.notifyLoginSuccess()
     }
 }

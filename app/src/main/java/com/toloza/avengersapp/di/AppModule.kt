@@ -7,6 +7,7 @@ import com.toloza.avengersapp.data.login.FirebaseLoginManager
 import com.toloza.avengersapp.data.login.LoginManager
 import com.toloza.avengersapp.service.repository.LoginRepository
 import com.toloza.avengersapp.service.storage.LocalStorage
+import com.toloza.avengersapp.ui.viewmodel.LoginCommunicationViewModel
 import com.toloza.avengersapp.ui.viewmodel.LoginViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -35,6 +36,8 @@ class AppModule {
                         loginManager = get()
                     )
                 }
+
+                viewModel { LoginCommunicationViewModel() }
             }
         }
 

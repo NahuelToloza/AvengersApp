@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.toloza.avengersapp.R
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class CharactersFragment : Fragment(R.layout.fragment_character) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -7,15 +7,21 @@
     <fragment
         android:id="@+id/LoginFragment"
         android:name="com.toloza.avengersapp.ui.fragment.LoginFragment"
-        android:label="com.toloza.avengersapp.ui.fragment.LoginFragment"
+        android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_LoginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/characterFragment" />
     </fragment>
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.toloza.avengersapp.ui.fragment.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/characterFragment"
+        android:name="com.toloza.avengersapp.ui.fragment.CharactersFragment"
+        android:label="CharacterFragment" />
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="com.toloza.avengersapp.ui.fragment.EventsFragment"
+        android:label="EventsFragment" />
+    <action
+        android:id="@+id/action_global_eventsFragment"
+        app:destination="@id/eventsFragment" />
 </navigation>

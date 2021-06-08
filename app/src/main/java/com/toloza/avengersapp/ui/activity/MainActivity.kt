@@ -43,12 +43,6 @@ class MainActivity : AppCompatActivity() {
         setUpNavigationProperties()
 
         communicationViewModel.uiModel.observe(this, uiModelObserver)
-
-        inflateBottomNavigationView()
-    }
-
-    private fun inflateBottomNavigationView() {
-
     }
 
     private fun showBottomNavigation() {

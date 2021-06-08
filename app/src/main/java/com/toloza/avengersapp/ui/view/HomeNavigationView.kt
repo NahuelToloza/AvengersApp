@@ -5,12 +5,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
 import com.toloza.avengersapp.databinding.ItemBottomNavigationBinding
 import com.toloza.avengersapp.extensions.setTopDrawable
-
 
 class HomeNavigationView @JvmOverloads constructor(
     context: Context,
@@ -25,6 +22,9 @@ class HomeNavigationView @JvmOverloads constructor(
         orientation = HORIZONTAL
     }
 
+    /**
+     * @param List<HomeNavigationModel> List with representative tab items
+     */
     fun setItemList(list: List<HomeNavigationModel>) {
         list.forEachIndexed { position, item ->
             val binding = ItemBottomNavigationBinding.inflate(
@@ -34,29 +34,35 @@ class HomeNavigationView @JvmOverloads constructor(
             )
             binding.tabTitle.text = context.getString(item.name)
             binding.tabTitle.setTopDrawable(item.disabledIcon)
+
             binding.parentLayout.setOnClickListener {
-                val beforeSelectedText =
-                    (this.getChildAt(selectedPosition) as? ViewGroup)?.getChildAt(0)
-                            as? AppCompatTextView
+                //Disabled before item
+                val beforeSelectedText = getBeforeSelectedText()
                 beforeSelectedText?.setTopDrawable(list[selectedPosition].disabledIcon)
+
+                //Enabled selected item
                 binding.tabTitle.setTopDrawable(item.enabledIcon)
                 selectedPosition = position
             }
 
-            val param = LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT,
-                1.0f
-            )
-            binding.root.layoutParams = param
+            binding.root.layoutParams = getSameWeightParam()
 
             this.addView(binding.root)
         }
     }
-}
 
-data class HomeNavigationModel(
-    @StringRes val name: Int,
-    @DrawableRes val enabledIcon: Int,
-    @DrawableRes val disabledIcon: Int
-)
+    private fun getBeforeSelectedText() =
+        (this.getChildAt(selectedPosition) as? ViewGroup)?.getChildAt(0) as? AppCompatTextView
+
+    private fun getSameWeightParam(): ViewGroup.LayoutParams {
+        return LayoutParams(
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.MATCH_PARENT,
+            DEFAULT_WEIGHT
+        )
+    }
+
+    companion object {
+        private const val DEFAULT_WEIGHT = 1.0f
+    }
+}

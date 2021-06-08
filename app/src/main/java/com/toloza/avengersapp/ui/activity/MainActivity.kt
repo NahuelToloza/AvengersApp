@@ -3,18 +3,16 @@ package com.toloza.avengersapp.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.navigation.*
-import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupWithNavController
-import com.toloza.avengersapp.NavGraphDirections
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.toloza.avengersapp.R
 import com.toloza.avengersapp.databinding.ActivityMainBinding
 import com.toloza.avengersapp.extensions.setToolbar
 import com.toloza.avengersapp.extensions.visible
+import com.toloza.avengersapp.ui.view.HomeNavigationModel
 import com.toloza.avengersapp.ui.viewmodel.LoginCommunicationUiModel
 import com.toloza.avengersapp.ui.viewmodel.LoginCommunicationViewModel
 import com.toloza.avengersapp.util.viewBinding
@@ -42,33 +40,31 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.toolbar_title)
         )
 
-        navController = binding.navHostFragment.findNavController()
-        binding.bottomNavigation.setupWithNavController(navController)
+        setUpNavigationProperties()
 
         communicationViewModel.uiModel.observe(this, uiModelObserver)
+
+        inflateBottomNavigationView()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.bottom_navigation_menu, menu)
-        return true
-    }
+    private fun inflateBottomNavigationView() {
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.characters -> {
-                val action = NavGraphDirections.actionGlobalEventsFragment()
-                navController.navigate(action)
-                return true
-            }
-            else -> {
-                item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-            }
-        }
     }
 
     private fun showBottomNavigation() {
-        binding.bottomNavigation.visible()
+        binding.homeNavigation.visible()
+        //TODO SHOW TO VIEWMODEL
+        val list = listOf(
+            HomeNavigationModel(R.string.characters, R.drawable.ic_character_enabled, R.drawable.ic_character_disabled),
+            HomeNavigationModel(R.string.events, R.drawable.ic_events_enabled, R.drawable.ic_events_disabled)
+        )
+        binding.homeNavigation.setItemList(list)
         binding.navHostFragment.findNavController().navigate(R.id.characterFragment)
+    }
+
+    private fun setUpNavigationProperties() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
     }
 
     companion object {

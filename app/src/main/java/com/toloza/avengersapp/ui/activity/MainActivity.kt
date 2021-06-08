@@ -12,14 +12,18 @@ import com.toloza.avengersapp.R
 import com.toloza.avengersapp.databinding.ActivityMainBinding
 import com.toloza.avengersapp.extensions.setToolbar
 import com.toloza.avengersapp.extensions.visible
+import com.toloza.avengersapp.ui.view.HomeNavigationListener
 import com.toloza.avengersapp.ui.view.HomeNavigationModel
 import com.toloza.avengersapp.ui.viewmodel.LoginCommunicationUiModel
 import com.toloza.avengersapp.ui.viewmodel.LoginCommunicationViewModel
+import com.toloza.avengersapp.ui.viewmodel.MainViewModel
 import com.toloza.avengersapp.util.viewBinding
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
-    private val communicationViewModel: LoginCommunicationViewModel by viewModel()
+class MainActivity : AppCompatActivity(), HomeNavigationListener {
+    private val communicationViewModel by viewModel<LoginCommunicationViewModel>()
+    private val viewModel: MainViewModel by inject()
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
@@ -45,9 +49,13 @@ class MainActivity : AppCompatActivity() {
         communicationViewModel.uiModel.observe(this, uiModelObserver)
     }
 
+    override fun onTabItemClicked(itemSelected: HomeNavigationModel) {
+        viewModel.onTabItemClicked(itemSelected)
+    }
+
     private fun showBottomNavigation(tabList: List<HomeNavigationModel>) {
         binding.homeNavigation.visible()
-        binding.homeNavigation.setItemList(tabList)
+        binding.homeNavigation.setItemList(tabList, this)
         binding.navHostFragment.findNavController().navigate(R.id.characterFragment)
     }
 

@@ -23,9 +23,10 @@ class HomeNavigationView @JvmOverloads constructor(
     }
 
     /**
-     * @param List<HomeNavigationModel> List with representative tab items
+     * @param list is a List with representative tab items
+     * @param listener is a interface for itemClicks
      */
-    fun setItemList(list: List<HomeNavigationModel>) {
+    fun setItemList(list: List<HomeNavigationModel>, listener: HomeNavigationListener) {
         list.forEachIndexed { position, item ->
             val binding = ItemBottomNavigationBinding.inflate(
                 LayoutInflater.from(context),
@@ -43,6 +44,7 @@ class HomeNavigationView @JvmOverloads constructor(
                 //Enabled selected item
                 binding.tabTitle.setTopDrawable(item.enabledIcon)
                 selectedPosition = position
+                listener.onTabItemClicked(item)
             }
 
             binding.root.layoutParams = getSameWeightParam()
@@ -65,4 +67,8 @@ class HomeNavigationView @JvmOverloads constructor(
     companion object {
         private const val DEFAULT_WEIGHT = 1.0f
     }
+}
+
+interface HomeNavigationListener{
+    fun onTabItemClicked(itemSelected: HomeNavigationModel)
 }

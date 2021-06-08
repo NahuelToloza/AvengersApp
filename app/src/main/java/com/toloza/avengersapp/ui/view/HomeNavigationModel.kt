@@ -9,6 +9,10 @@ data class HomeNavigationModel(
     @DrawableRes val enabledIcon: Int,
     @DrawableRes val disabledIcon: Int
 ) {
+    fun isCharacter() = (name == R.string.characters)
+
+    fun isEvent() = (name == R.string.events)
+
     companion object {
         fun getTabList(): List<HomeNavigationModel> {
             return listOf(

@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     private val uiModelObserver = Observer<LoginCommunicationUiModel> {
-        it.notifyLoginSuccess?.consume()?.let { showBottomNavigation() }
+        it.notifyLoginSuccess?.consume()?.let { tabList -> showBottomNavigation(tabList) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,14 +45,9 @@ class MainActivity : AppCompatActivity() {
         communicationViewModel.uiModel.observe(this, uiModelObserver)
     }
 
-    private fun showBottomNavigation() {
+    private fun showBottomNavigation(tabList: List<HomeNavigationModel>) {
         binding.homeNavigation.visible()
-        //TODO SHOW TO VIEWMODEL
-        val list = listOf(
-            HomeNavigationModel(R.string.characters, R.drawable.ic_character_enabled, R.drawable.ic_character_disabled),
-            HomeNavigationModel(R.string.events, R.drawable.ic_events_enabled, R.drawable.ic_events_disabled)
-        )
-        binding.homeNavigation.setItemList(list)
+        binding.homeNavigation.setItemList(tabList)
         binding.navHostFragment.findNavController().navigate(R.id.characterFragment)
     }
 

@@ -35,7 +35,7 @@ class HomeNavigationView @JvmOverloads constructor(
             binding.tabTitle.text = context.getString(item.name)
             binding.tabTitle.setTopDrawable(item.disabledIcon)
 
-            binding.parentLayout.setOnClickListener {
+            binding.tabTitle.setOnClickListener {
                 //Disabled before item
                 val beforeSelectedText = getBeforeSelectedText()
                 beforeSelectedText?.setTopDrawable(list[selectedPosition].disabledIcon)

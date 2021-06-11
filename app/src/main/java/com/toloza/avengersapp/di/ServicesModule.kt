@@ -10,9 +10,11 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "https://gateway.marvel.com"
 private const val SHARED_PREFERENCES_DEFAULT_NAME = "default"
+private const val TIMEOUT = 1L
 
 val servicesModule = module {
     factory { provideOkHttpClient() }
@@ -44,6 +46,9 @@ private fun provideOkHttpClient(): OkHttpClient {
     interceptor.level = HttpLoggingInterceptor.Level.BODY
     return OkHttpClient
         .Builder()
+        .connectTimeout(TIMEOUT, TimeUnit.MINUTES) // connect timeout
+        .writeTimeout(TIMEOUT, TimeUnit.MINUTES) // write timeout
+        .readTimeout(TIMEOUT, TimeUnit.MINUTES) // read timeout
         .addInterceptor(interceptor)
         .protocols(listOf(Protocol.HTTP_1_1))
         .build()

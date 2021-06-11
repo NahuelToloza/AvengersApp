@@ -7,7 +7,6 @@ import com.toloza.avengersapp.service.api.CHARACTER_PAGE_COUNT
 import com.toloza.avengersapp.service.dto.CharactersDto
 import com.toloza.avengersapp.service.error.HandleHttpErrors
 import com.toloza.avengersapp.service.security.HashKeyBuilder
-import retrofit2.HttpException
 
 class AvengersRepository(
     private val api: AvengersApi,
@@ -25,10 +24,10 @@ class AvengersRepository(
             try {
                 val result = api.getCharacters(hash = hash, offset = getOffset(page))
                 return Result.Success(result)
-            } catch (exception: HttpException) {
-                handleHttpErrors.handleHttpException(exception.code())
+            } catch (exception: Exception) {
+                handleHttpErrors.handleApiException(exception)
             }
-            return handleHttpErrors.handleHttpException(-1)
+            return handleHttpErrors.handleApiException(Exception(""))
         } ?: run {
             return Result.Error((getGenericError("There was a problem to generate hash")))
         }

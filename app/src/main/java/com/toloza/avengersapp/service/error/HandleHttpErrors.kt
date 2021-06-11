@@ -7,10 +7,31 @@ import com.toloza.avengersapp.data.Result
 import com.toloza.avengersapp.data.model.core.ServerError
 import com.toloza.avengersapp.data.model.core.ServerErrorCode
 import com.toloza.avengersapp.extensions.getGenericError
+import retrofit2.HttpException
+import java.net.ConnectException
 
 class HandleHttpErrors(private val context: Context) {
-    fun handleHttpException(code: Int): Result.Error {
-        val error = when (code) {
+
+    fun handleApiException(exception: Exception): Result.Error {
+        val error = when (exception) {
+            is HttpException -> {
+                handleHttpException(exception.code())
+            }
+            is ConnectException -> {
+                ServerError(
+                    ServerErrorCode.ServiceUnavailable.code,
+                    getText(R.string.error_bad_connection)
+                )
+            }
+            else -> {
+                getGenericError(getText(R.string.generic_error))
+            }
+        }
+        return Result.Error(error)
+    }
+
+    private fun handleHttpException(code: Int): ServerError {
+        return when (code) {
             ServerErrorCode.BadRequest.code -> {
                 ServerError(ServerErrorCode.BadRequest.code, getText(R.string.error_bad_request))
             }
@@ -33,7 +54,6 @@ class HandleHttpErrors(private val context: Context) {
                 getGenericError(getText(R.string.generic_error))
             }
         }
-        return Result.Error(error)
     }
 
     private fun getText(@StringRes stringRes: Int): String = context.getString(stringRes)

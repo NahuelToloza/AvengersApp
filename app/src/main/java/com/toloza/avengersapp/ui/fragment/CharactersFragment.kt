@@ -27,6 +27,7 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character), CharacterL
         if (it.showLoading) showLoading() else hideLoading()
         it.showCharactersList?.consume()?.let { list -> setUpAdapter(list) }
         it.updateCharactersList?.consume()?.let { list -> updateCharactersList(list) }
+        it.showError?.consume()?.let { error -> showError(error) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

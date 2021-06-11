@@ -43,6 +43,7 @@ android {
 
     buildTypes.each {
         it.buildConfigField 'String', 'PRIVATE_KEY_AVENGERS_API', PrivateKeyAvengersApi
+        it.buildConfigField 'String', 'PUBLIC_KEY_AVENGERS_API', PublicKeyAvengersApi
     }
 }
 

@@ -15,10 +15,11 @@
     <string name="content_description_character">Character image</string>
 
     <!-- Errors -->
-    <string name="generic_error">Ups, unknown error</string>
+    <string name="generic_error">Ops, unknown error</string>
     <string name="error_internal_server_error">Internal server error</string>
     <string name="error_request_time_out">Request time out error</string>
     <string name="error_forbidden">Forbidden</string>
     <string name="error_bad_request">Bad request error :C</string>
+    <string name="error_bad_connection">Problemas de conexión</string>
 
 </resources>

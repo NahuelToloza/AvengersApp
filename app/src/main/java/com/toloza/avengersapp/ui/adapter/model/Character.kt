@@ -1,6 +1,6 @@
 package com.toloza.avengersapp.ui.adapter.model
 
-data class CharacterAdapterModel(
+data class Character(
     val id: Long,
     val imageUrl: String,
     val title: String,

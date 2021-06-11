@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.toloza.avengersapp.R
 import com.toloza.avengersapp.databinding.ItemCharacterBinding
-import com.toloza.avengersapp.ui.adapter.model.CharacterAdapterModel
+import com.toloza.avengersapp.ui.adapter.model.Character
 
 class CharactersAdapter(
     private val listener: CharacterListener
-) : ListAdapter<CharacterAdapterModel, CharactersAdapter.CharacterViewHolder>(createGroupsDiffCallback()) {
+) : ListAdapter<Character, CharactersAdapter.CharacterViewHolder>(createGroupsDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val view =
@@ -28,7 +28,7 @@ class CharactersAdapter(
     class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemCharacterBinding.bind(itemView)
 
-        fun bind(model: CharacterAdapterModel, listener: CharacterListener) = with(binding) {
+        fun bind(model: Character, listener: CharacterListener) = with(binding) {
             Glide.with(itemView.context).load(model.imageUrl).into(imgCharacter)
 
             tvTitle.text = model.title
@@ -40,12 +40,12 @@ class CharactersAdapter(
     }
 
     companion object {
-        private fun createGroupsDiffCallback() = object : DiffUtil.ItemCallback<CharacterAdapterModel>() {
-            override fun areItemsTheSame(oldItem: CharacterAdapterModel, newItem: CharacterAdapterModel): Boolean {
+        private fun createGroupsDiffCallback() = object : DiffUtil.ItemCallback<Character>() {
+            override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: CharacterAdapterModel, newItem: CharacterAdapterModel): Boolean {
+            override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
                 return oldItem == newItem
             }
         }
@@ -53,5 +53,5 @@ class CharactersAdapter(
 }
 
 interface CharacterListener {
-    fun onClickCharacterItem(characterAdapterModel: CharacterAdapterModel)
+    fun onClickCharacterItem(character: Character)
 }

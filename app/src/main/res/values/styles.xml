@@ -12,4 +12,21 @@
     <style name="SplashScreenTheme" parent = "Theme.AppCompat.NoActionBar">
     <item name="android:windowBackground">@drawable/launcher_screen_with_logo</item>
 </style>
+
+    <style name="CharacterTitleStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/roboto_condensed_regular</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="CharacterDescriptionStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/roboto_condensed_regular</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">17sp</item>
+    </style>
 </resources>

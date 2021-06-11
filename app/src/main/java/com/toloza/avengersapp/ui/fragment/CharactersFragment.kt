@@ -2,14 +2,16 @@ package com.toloza.avengersapp.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.toloza.avengersapp.R
 import com.toloza.avengersapp.databinding.FragmentCharacterBinding
 import com.toloza.avengersapp.ui.adapter.CharacterListener
 import com.toloza.avengersapp.ui.adapter.CharactersAdapter
-import com.toloza.avengersapp.ui.adapter.model.CharacterAdapterModel
+import com.toloza.avengersapp.ui.adapter.model.Character
 import com.toloza.avengersapp.ui.viewmodel.CharactersUiModel
 import com.toloza.avengersapp.ui.viewmodel.CharactersViewModel
 import com.toloza.avengersapp.util.EndlessRecyclerViewScrollListener
@@ -37,11 +39,12 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character), CharacterL
         viewModel.getCharacters()
     }
 
-    override fun onClickCharacterItem(characterAdapterModel: CharacterAdapterModel) {
-        //TODO HANDLE CLICK
+    override fun onClickCharacterItem(character: Character) {
+        val bundle = bundleOf("character" to character)
+        findNavController().navigate(R.id.characterDetail, bundle)
     }
 
-    private fun setUpAdapter(list: List<CharacterAdapterModel>) {
+    private fun setUpAdapter(list: List<Character>) {
         adapter = CharactersAdapter(this)
         val layoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = layoutManager
@@ -57,7 +60,7 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character), CharacterL
         adapter?.submitList(list)
     }
 
-    private fun updateCharactersList(list: List<CharacterAdapterModel>) {
+    private fun updateCharactersList(list: List<Character>) {
         adapter?.submitList(list)
     }
 }

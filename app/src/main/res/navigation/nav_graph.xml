@@ -16,7 +16,11 @@
     <fragment
         android:id="@+id/characterFragment"
         android:name="com.toloza.avengersapp.ui.fragment.CharactersFragment"
-        android:label="CharacterFragment" />
+        android:label="CharacterFragment">
+        <action
+            android:id="@+id/action_characterFragment_to_characterDetail"
+            app:destination="@id/characterDetail" />
+    </fragment>
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.toloza.avengersapp.ui.fragment.EventsFragment"
@@ -24,4 +28,14 @@
     <action
         android:id="@+id/action_global_eventsFragment"
         app:destination="@id/eventsFragment" />
+    <fragment
+        android:id="@+id/characterDetail"
+        android:name="com.toloza.avengersapp.ui.fragment.CharacterDetail"
+        android:label="CharacterDetail">
+        <argument
+            android:name="character"
+            android:defaultValue="@null"
+            app:argType="com.toloza.avengersapp.ui.adapter.model.Character"
+            app:nullable="true" />
+    </fragment>
 </navigation>

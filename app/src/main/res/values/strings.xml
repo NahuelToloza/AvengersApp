@@ -22,4 +22,7 @@
     <string name="error_bad_request">Bad request error :C</string>
     <string name="error_bad_connection">Problemas de conexión</string>
 
+    <!-- Character detail -->
+    <string name="appears_in_these_comics">Appears in these comics</string>
+
 </resources>

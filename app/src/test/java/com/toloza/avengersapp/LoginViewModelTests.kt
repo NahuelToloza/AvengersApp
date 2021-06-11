@@ -50,7 +50,7 @@ class LoginViewModelTests {
         whenever(repository.getLocalUser()).thenReturn(fakeUser)
 
         viewModel.setUpUserInformation()
-        val result = viewModel.uiModel.getOrAwaitValue()
+        val result = viewModel.uiState.getOrAwaitValue()
         val expected = LoginUiModel(continueWithFlow = Event(NullModel()))
 
         Assert.assertEquals(expected, result)
@@ -62,7 +62,7 @@ class LoginViewModelTests {
         whenever(repository.getLocalUser()).thenReturn(fakeUser)
 
         viewModel.setUpUserInformation()
-        val result = viewModel.uiModel.getOrAwaitValue()
+        val result = viewModel.uiState.getOrAwaitValue()
 
         Assert.assertNotNull(result.launchLogin)
     }

@@ -20,9 +20,9 @@ class LoginViewModel(
     private val dispatcherProvider: CoroutinesDispatcherProvider,
     private val loginManager: LoginManager
 ) : ViewModel() {
-    private val _uiModel = MutableLiveData<LoginUiModel>()
-    val uiModel: LiveData<LoginUiModel>
-        get() = _uiModel
+    private val _uiState = MutableLiveData<LoginUiModel>()
+    val uiState: LiveData<LoginUiModel>
+        get() = _uiState
 
     fun setUpUserInformation() = viewModelScope.launch(dispatcherProvider.computation) {
         val localUser = repository.getLocalUser()
@@ -47,7 +47,7 @@ class LoginViewModel(
         continueWithFlow: Event<NullModel>? = null,
         showError: Event<ServerError>? = null
     ) = withContext(dispatcherProvider.main) {
-        _uiModel.value = LoginUiModel(
+        _uiState.value = LoginUiModel(
             launchLogin = launchLogin,
             continueWithFlow = continueWithFlow,
             showError = showError

@@ -6,17 +6,16 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.toloza.avengersapp.R
 import com.toloza.avengersapp.data.login.LoginBuilder
 import com.toloza.avengersapp.ui.viewmodel.LoginCommunicationViewModel
 import com.toloza.avengersapp.ui.viewmodel.LoginUiModel
 import com.toloza.avengersapp.ui.viewmodel.LoginViewModel
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
-    private val viewModel: LoginViewModel by inject()
+    private val viewModel: LoginViewModel by viewModel()
     private val communicationViewModel: LoginCommunicationViewModel by sharedViewModel()
 
     private val resultLauncher =
@@ -37,7 +36,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.setUpUserInformation()
-        viewModel.uiModel.observe(viewLifecycleOwner, uiModelObserver)
+        viewModel.uiState.observe(viewLifecycleOwner, uiModelObserver)
     }
 
     private fun launchLogin(loginBuilder: LoginBuilder) {

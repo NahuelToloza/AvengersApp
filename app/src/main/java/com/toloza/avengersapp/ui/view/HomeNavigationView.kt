@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatTextView
 import com.toloza.avengersapp.databinding.ItemBottomNavigationBinding
 import com.toloza.avengersapp.extensions.setTopDrawable
+import com.toloza.avengersapp.ui.view.model.HomeNavigationTab
 
 class HomeNavigationView @JvmOverloads constructor(
     context: Context,
@@ -16,7 +17,7 @@ class HomeNavigationView @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : LinearLayout(context, attrs, defStyle, defStyleRes) {
 
-    var selectedPosition = -1
+    var selectedPosition = 0
 
     init {
         orientation = HORIZONTAL
@@ -26,23 +27,28 @@ class HomeNavigationView @JvmOverloads constructor(
      * @param list is a List with representative tab items
      * @param listener is a interface for itemClicks
      */
-    fun setItemList(list: List<HomeNavigationModel>, listener: HomeNavigationListener) {
+    fun setItemList(list: List<HomeNavigationTab>, listener: HomeNavigationListener) {
         list.forEachIndexed { position, item ->
             val binding = ItemBottomNavigationBinding.inflate(
                 LayoutInflater.from(context),
                 this,
                 false
             )
-            binding.tabTitle.text = context.getString(item.name)
-            binding.tabTitle.setTopDrawable(item.disabledIcon)
+            binding.tabTitle.text = context.getString(item.getName())
+            binding.tabTitle.setTopDrawable(item.getDisabledIcon())
+
+            if (position == 0) {
+                binding.tabTitle.setTopDrawable(item.getEnabledIcon())
+                selectedPosition = 0
+            }
 
             binding.tabTitle.setOnClickListener {
                 //Disabled before item
                 val beforeSelectedText = getBeforeSelectedText()
-                beforeSelectedText?.setTopDrawable(list[selectedPosition].disabledIcon)
+                beforeSelectedText?.setTopDrawable(list[selectedPosition].getDisabledIcon())
 
                 //Enabled selected item
-                binding.tabTitle.setTopDrawable(item.enabledIcon)
+                binding.tabTitle.setTopDrawable(item.getEnabledIcon())
                 selectedPosition = position
                 listener.onTabItemClicked(item)
             }
@@ -54,7 +60,7 @@ class HomeNavigationView @JvmOverloads constructor(
     }
 
     private fun getBeforeSelectedText() =
-        (this.getChildAt(selectedPosition) as? ViewGroup)?.getChildAt(0) as? AppCompatTextView
+        (this.getChildAt(selectedPosition) as? AppCompatTextView)
 
     private fun getSameWeightParam(): ViewGroup.LayoutParams {
         return LayoutParams(
@@ -69,6 +75,6 @@ class HomeNavigationView @JvmOverloads constructor(
     }
 }
 
-interface HomeNavigationListener{
-    fun onTabItemClicked(itemSelected: HomeNavigationModel)
+interface HomeNavigationListener {
+    fun onTabItemClicked(itemSelected: HomeNavigationTab)
 }

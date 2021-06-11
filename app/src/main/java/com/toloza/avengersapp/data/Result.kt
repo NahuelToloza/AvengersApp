@@ -9,12 +9,12 @@ import com.toloza.avengersapp.data.model.core.ServerError
 sealed class Result<out T : Any> {
 
     data class Success<out T : Any>(val data: T) : Result<T>()
-    data class Error(val errors: List<ServerError>, val t: Throwable? = null) : Result<Nothing>()
+    data class Error(val error: ServerError, val t: Throwable? = null) : Result<Nothing>()
 
     override fun toString(): String {
         return when (this) {
             is Success<*> -> "Success[data=$data]"
-            is Error -> "Errors[server errors=$errors, throwable=$t]"
+            is Error -> "Errors[server errors=$error, throwable=$t]"
         }
     }
 }

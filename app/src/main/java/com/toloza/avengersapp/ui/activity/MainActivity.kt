@@ -13,9 +13,10 @@ import com.toloza.avengersapp.databinding.ActivityMainBinding
 import com.toloza.avengersapp.extensions.setToolbar
 import com.toloza.avengersapp.extensions.visible
 import com.toloza.avengersapp.ui.view.HomeNavigationListener
-import com.toloza.avengersapp.ui.view.HomeNavigationModel
+import com.toloza.avengersapp.ui.view.model.HomeNavigationTab
 import com.toloza.avengersapp.ui.viewmodel.LoginCommunicationUiModel
 import com.toloza.avengersapp.ui.viewmodel.LoginCommunicationViewModel
+import com.toloza.avengersapp.ui.viewmodel.MainUiModel
 import com.toloza.avengersapp.ui.viewmodel.MainViewModel
 import com.toloza.avengersapp.util.viewBinding
 import org.koin.android.ext.android.inject
@@ -29,7 +30,12 @@ class MainActivity : AppCompatActivity(), HomeNavigationListener {
 
     private lateinit var navController: NavController
 
-    private val uiModelObserver = Observer<LoginCommunicationUiModel> {
+    private val uiStateObserver = Observer<MainUiModel>{
+        it.showCharactersScreen?.consume()?.let { showCharactersScreen() }
+        it.showEventsScreen?.consume()?.let { showEventsScreen() }
+    }
+
+    private val communicationObserver = Observer<LoginCommunicationUiModel> {
         it.notifyLoginSuccess?.consume()?.let { tabList -> showBottomNavigation(tabList) }
     }
 
@@ -46,14 +52,15 @@ class MainActivity : AppCompatActivity(), HomeNavigationListener {
 
         setUpNavigationProperties()
 
-        communicationViewModel.uiModel.observe(this, uiModelObserver)
+        communicationViewModel.uiState.observe(this, communicationObserver)
+        viewModel.uiState.observe(this, uiStateObserver)
     }
 
-    override fun onTabItemClicked(itemSelected: HomeNavigationModel) {
+    override fun onTabItemClicked(itemSelected: HomeNavigationTab) {
         viewModel.onTabItemClicked(itemSelected)
     }
 
-    private fun showBottomNavigation(tabList: List<HomeNavigationModel>) {
+    private fun showBottomNavigation(tabList: List<HomeNavigationTab>) {
         binding.homeNavigation.visible()
         binding.homeNavigation.setItemList(tabList, this)
         binding.navHostFragment.findNavController().navigate(R.id.characterFragment)
@@ -62,6 +69,14 @@ class MainActivity : AppCompatActivity(), HomeNavigationListener {
     private fun setUpNavigationProperties() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+    }
+
+    private fun showCharactersScreen() {
+        navController.navigate(R.id.characterFragment)
+    }
+
+    private fun showEventsScreen() {
+        navController.navigate(R.id.eventsFragment)
     }
 
     companion object {

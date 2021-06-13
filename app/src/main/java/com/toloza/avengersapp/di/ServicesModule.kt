@@ -2,7 +2,7 @@ package com.toloza.avengersapp.di
 
 import android.app.Application
 import android.content.SharedPreferences
-import com.toloza.avengersapp.service.api.AvengersApi
+import com.toloza.avengersapp.service.api.AvengersService
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,7 +19,7 @@ private const val TIMEOUT = 1L
 val servicesModule = module {
     factory { provideOkHttpClient() }
 
-    single { provideRetrofit(get()).create(AvengersApi::class.java) }
+    single { provideRetrofit(get()).create(AvengersService::class.java) }
 
     single {
         getSharedPrefs(androidApplication())

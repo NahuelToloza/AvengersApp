@@ -1,4 +1,4 @@
-package com.toloza.avengersapp.ui.adapter.model
+package com.toloza.avengersapp.data.model
 
 data class Character(
     val id: Long,

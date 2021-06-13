@@ -1,35 +1,37 @@
 package com.toloza.avengersapp.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.toloza.avengersapp.R
+import com.toloza.avengersapp.data.model.AvengersEvent
+import com.toloza.avengersapp.data.model.Character
+import com.toloza.avengersapp.data.model.Comic
 import com.toloza.avengersapp.databinding.ItemCharacterBinding
-import com.toloza.avengersapp.ui.adapter.model.Character
+import com.toloza.avengersapp.extensions.loadImage
 
 class CharactersAdapter(
     private val listener: CharacterListener
-) : ListAdapter<Character, CharactersAdapter.CharacterViewHolder>(createGroupsDiffCallback()) {
+) : ListAdapter<Character, CharactersAdapter.CharacterViewHolder>(updateCharactersDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_character, parent, false)
-        return CharacterViewHolder(view)
+        val binding = ItemCharacterBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return CharacterViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(currentList[holder.adapterPosition], listener)
     }
 
-    class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemCharacterBinding.bind(itemView)
-
+    class CharacterViewHolder(private val binding: ItemCharacterBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(model: Character, listener: CharacterListener) = with(binding) {
-            Glide.with(itemView.context).load(model.imageUrl).into(imgCharacter)
+            imgCharacter.loadImage(model.imageUrl)
 
             tvTitle.text = model.title
             tvDescription.text = model.description
@@ -40,7 +42,7 @@ class CharactersAdapter(
     }
 
     companion object {
-        private fun createGroupsDiffCallback() = object : DiffUtil.ItemCallback<Character>() {
+        private fun updateCharactersDiffCallback() = object : DiffUtil.ItemCallback<Character>() {
             override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
                 return oldItem.id == newItem.id
             }

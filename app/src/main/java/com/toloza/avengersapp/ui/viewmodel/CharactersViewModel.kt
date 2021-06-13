@@ -9,7 +9,7 @@ import com.toloza.avengersapp.data.CoroutinesDispatcherProvider
 import com.toloza.avengersapp.data.Result
 import com.toloza.avengersapp.data.model.core.ServerError
 import com.toloza.avengersapp.service.repository.AvengersRepository
-import com.toloza.avengersapp.ui.adapter.model.Character
+import com.toloza.avengersapp.data.model.Character
 import com.toloza.avengersapp.util.Event
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

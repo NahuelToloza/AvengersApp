@@ -2,7 +2,7 @@ package com.toloza.avengersapp.data
 
 import com.toloza.avengersapp.extensions.replaceHttpForHttps
 import com.toloza.avengersapp.service.dto.CharactersDto
-import com.toloza.avengersapp.ui.adapter.model.Character
+import com.toloza.avengersapp.data.model.Character
 
 class CharacterMapper {
     fun toCharacterAdapterModel(charactersDto: CharactersDto): List<Character> {

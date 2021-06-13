@@ -8,20 +8,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.toloza.avengersapp.R
-import com.toloza.avengersapp.databinding.FragmentCharacterBinding
 import com.toloza.avengersapp.ui.adapter.CharacterListener
 import com.toloza.avengersapp.ui.adapter.CharactersAdapter
-import com.toloza.avengersapp.ui.adapter.model.Character
+import com.toloza.avengersapp.data.model.Character
+import com.toloza.avengersapp.databinding.FragmentHomeBinding
 import com.toloza.avengersapp.ui.viewmodel.CharactersUiModel
 import com.toloza.avengersapp.ui.viewmodel.CharactersViewModel
 import com.toloza.avengersapp.util.EndlessRecyclerViewScrollListener
 import com.toloza.avengersapp.util.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CharactersFragment : BaseFragment(R.layout.fragment_character), CharacterListener {
+class CharactersFragment : BaseFragment(R.layout.fragment_home), CharacterListener {
     private val viewModel: CharactersViewModel by viewModel()
 
-    private val binding by viewBinding(FragmentCharacterBinding::bind)
+    private val binding by viewBinding(FragmentHomeBinding::bind)
 
     private var adapter: CharactersAdapter? = null
 

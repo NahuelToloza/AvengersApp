@@ -16,19 +16,22 @@
             android:layout_width="86dp"
             android:layout_height="86dp"
             android:layout_margin="21dp"
+            android:contentDescription="@string/content_description_event"
             android:scaleType="centerCrop"
+            app:layout_goneMarginBottom="40dp"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/content_description_event" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_title"
             style="@style/CharacterTitleStyle"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="30dp"
             android:layout_marginEnd="5dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textAllCaps="false"
             app:layout_constraintEnd_toStartOf="@id/img_arrow"
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toEndOf="@id/img_event"
@@ -50,12 +53,41 @@
         <ImageView
             android:id="@+id/img_arrow"
             android:layout_width="40dp"
-            android:src="@drawable/ic_down_arrow"
             android:layout_height="40dp"
             android:layout_marginEnd="20dp"
+            android:contentDescription="@string/content_description_arrow"
+            android:src="@drawable/ic_down_arrow"
             app:layout_constraintBottom_toBottomOf="@id/img_event"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/img_event"
-            android:contentDescription="@string/content_description_arrow" />
+            app:layout_constraintTop_toTopOf="@id/img_event" />
+
+        <TextView
+            android:id="@+id/tv_comic"
+            style="@style/CharacterTitleStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_marginTop="28dp"
+            android:text="@string/comic_to_discuss"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_event" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tv_comic" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_comics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="tv_comic, recycler_view"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

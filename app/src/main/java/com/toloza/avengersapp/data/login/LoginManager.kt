@@ -1,6 +1,6 @@
 package com.toloza.avengersapp.data.login
 
-import com.toloza.avengersapp.data.model.User
+import com.toloza.avengersapp.data.model.internal.User
 
 interface LoginManager {
     fun getBuilder(): LoginBuilder

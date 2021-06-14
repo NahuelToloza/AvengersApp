@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.toloza.avengersapp.data.CharacterMapper
+import com.toloza.avengersapp.data.mapper.CharacterMapper
 import com.toloza.avengersapp.data.CoroutinesDispatcherProvider
 import com.toloza.avengersapp.data.Result
 import com.toloza.avengersapp.data.model.core.ServerError
 import com.toloza.avengersapp.service.repository.AvengersRepository
-import com.toloza.avengersapp.data.model.Character
+import com.toloza.avengersapp.data.model.internal.CharacterAdapterModel
 import com.toloza.avengersapp.util.Event
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,7 +24,7 @@ class CharactersViewModel(
     val uiState: LiveData<CharactersUiModel>
         get() = _uiState
 
-    private var characterList = mutableListOf<Character>()
+    private var characterList = mutableListOf<CharacterAdapterModel>()
 
     fun getCharacters(page: Int = 0) = viewModelScope.launch(dispatcherProvider.computation) {
         showLoading()
@@ -51,8 +51,8 @@ class CharactersViewModel(
     }
 
     private suspend fun emitUiModel(
-        showCharactersList: Event<List<Character>>? = null,
-        updateCharactersList: Event<List<Character>>? = null,
+        showCharactersList: Event<List<CharacterAdapterModel>>? = null,
+        updateCharactersList: Event<List<CharacterAdapterModel>>? = null,
         showError: Event<ServerError>? = null,
         showLoading: Boolean = false
     ) = withContext(dispatcherProvider.main) {
@@ -66,8 +66,8 @@ class CharactersViewModel(
 }
 
 data class CharactersUiModel(
-    val showCharactersList: Event<List<Character>>? = null,
-    val updateCharactersList: Event<List<Character>>? = null,
+    val showCharactersList: Event<List<CharacterAdapterModel>>? = null,
+    val updateCharactersList: Event<List<CharacterAdapterModel>>? = null,
     val showError: Event<ServerError>? = null,
     val showLoading: Boolean = false
 )

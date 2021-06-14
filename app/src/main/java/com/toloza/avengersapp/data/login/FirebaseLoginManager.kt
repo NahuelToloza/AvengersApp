@@ -1,7 +1,7 @@
 package com.toloza.avengersapp.data.login
 
 import com.google.firebase.auth.FirebaseAuth
-import com.toloza.avengersapp.data.model.User
+import com.toloza.avengersapp.data.model.internal.User
 
 class FirebaseLoginManager : LoginManager {
     override fun getBuilder(): LoginBuilder {

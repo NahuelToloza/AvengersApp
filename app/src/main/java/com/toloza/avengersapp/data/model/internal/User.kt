@@ -1,4 +1,4 @@
-package com.toloza.avengersapp.data.model
+package com.toloza.avengersapp.data.model.internal
 
 data class User(
     val mail: String,

@@ -1,9 +1,10 @@
 package com.toloza.avengersapp.di
 
-import com.toloza.avengersapp.data.CharacterMapper
+import com.toloza.avengersapp.data.mapper.CharacterMapper
 import com.toloza.avengersapp.data.CoroutinesDispatcherProvider
 import com.toloza.avengersapp.data.login.FirebaseLoginManager
 import com.toloza.avengersapp.data.login.LoginManager
+import com.toloza.avengersapp.data.mapper.EventMapper
 import com.toloza.avengersapp.service.error.HandleHttpErrors
 import com.toloza.avengersapp.service.repository.AvengersRepository
 import com.toloza.avengersapp.service.repository.LoginRepository
@@ -20,8 +21,9 @@ val wrappersModule = module {
     single<LoginManager> { FirebaseLoginManager() }
     single<HashKeyBuilder> { AvengersHashKeyBuilder() }
     single { CharacterMapper() }
+    single { EventMapper() }
     single { HandleHttpErrors(androidContext()) }
 
     single { LoginRepository(get()) }
-    single { AvengersRepository(get(), get(), get()) }
+    single { AvengersRepository(get()) }
 }

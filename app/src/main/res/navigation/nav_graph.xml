@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/LoginFragment"
         android:name="com.toloza.avengersapp.ui.fragment.LoginFragment"
-        android:label="LoginFragment"
+        android:label="@string/toolbar_title"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_LoginFragment_to_homeFragment"
@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/characterFragment"
         android:name="com.toloza.avengersapp.ui.fragment.CharactersFragment"
-        android:label="CharacterFragment">
+        android:label="@string/toolbar_title">
         <action
             android:id="@+id/action_characterFragment_to_characterDetail"
             app:destination="@id/characterDetail" />
@@ -24,18 +24,17 @@
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.toloza.avengersapp.ui.fragment.EventsFragment"
-        android:label="EventsFragment" />
+        android:label="@string/toolbar_title" />
     <action
         android:id="@+id/action_global_eventsFragment"
         app:destination="@id/eventsFragment" />
     <fragment
         android:id="@+id/characterDetail"
-        android:name="com.toloza.avengersapp.ui.fragment.CharacterDetail"
-        android:label="CharacterDetail">
+        android:name="com.toloza.avengersapp.ui.fragment.CharacterDetailFragment">
         <argument
             android:name="character"
             android:defaultValue="@null"
-            app:argType="com.toloza.avengersapp.ui.adapter.model.Character"
+            app:argType="com.toloza.avengersapp.data.model.internal.CharacterAdapterModel"
             app:nullable="true" />
     </fragment>
 </navigation>

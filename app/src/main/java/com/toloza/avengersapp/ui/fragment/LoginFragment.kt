@@ -9,8 +9,8 @@ import androidx.lifecycle.Observer
 import com.toloza.avengersapp.R
 import com.toloza.avengersapp.data.login.LoginBuilder
 import com.toloza.avengersapp.ui.viewmodel.LoginCommunicationViewModel
-import com.toloza.avengersapp.ui.viewmodel.LoginUiModel
 import com.toloza.avengersapp.ui.viewmodel.LoginViewModel
+import com.toloza.avengersapp.ui.viewmodel.uimodel.login.LoginUiModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

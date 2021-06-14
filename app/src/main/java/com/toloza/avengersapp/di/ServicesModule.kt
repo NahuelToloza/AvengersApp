@@ -2,7 +2,8 @@ package com.toloza.avengersapp.di
 
 import android.app.Application
 import android.content.SharedPreferences
-import com.toloza.avengersapp.service.api.AvengersService
+import com.toloza.avengersapp.service.api.AvengersApi
+import com.toloza.avengersapp.service.service.AvengersService
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
@@ -21,9 +22,9 @@ val servicesModule = module {
 
     single { provideRetrofit(get()).create(AvengersService::class.java) }
 
-    single {
-        getSharedPrefs(androidApplication())
-    }
+    single { AvengersApi(get(), get(), get()) }
+
+    single { getSharedPrefs(androidApplication()) }
 }
 
 private fun getSharedPrefs(androidApplication: Application): SharedPreferences {

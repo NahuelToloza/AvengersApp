@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.toloza.avengersapp.data.CoroutinesDispatcherProvider
 import com.toloza.avengersapp.data.model.core.NullModel
 import com.toloza.avengersapp.ui.view.model.HomeNavigationTab
+import com.toloza.avengersapp.ui.viewmodel.uimodel.main.MainUiModel
 import com.toloza.avengersapp.util.Event
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -41,8 +42,3 @@ class MainViewModel(
         )
     }
 }
-
-data class MainUiModel(
-    val showCharactersScreen: Event<NullModel>? = null,
-    val showEventsScreen: Event<NullModel>? = null
-)

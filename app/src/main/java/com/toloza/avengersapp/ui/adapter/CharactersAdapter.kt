@@ -5,15 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.toloza.avengersapp.data.model.AvengersEvent
-import com.toloza.avengersapp.data.model.Character
-import com.toloza.avengersapp.data.model.Comic
+import com.toloza.avengersapp.data.model.internal.CharacterAdapterModel
 import com.toloza.avengersapp.databinding.ItemCharacterBinding
 import com.toloza.avengersapp.extensions.loadImage
 
 class CharactersAdapter(
     private val listener: CharacterListener
-) : ListAdapter<Character, CharactersAdapter.CharacterViewHolder>(updateCharactersDiffCallback()) {
+) : ListAdapter<CharacterAdapterModel, CharactersAdapter.CharacterViewHolder>(updateCharactersDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val binding = ItemCharacterBinding.inflate(
@@ -30,7 +28,7 @@ class CharactersAdapter(
 
     class CharacterViewHolder(private val binding: ItemCharacterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: Character, listener: CharacterListener) = with(binding) {
+        fun bind(model: CharacterAdapterModel, listener: CharacterListener) = with(binding) {
             imgCharacter.loadImage(model.imageUrl)
 
             tvTitle.text = model.title
@@ -42,12 +40,12 @@ class CharactersAdapter(
     }
 
     companion object {
-        private fun updateCharactersDiffCallback() = object : DiffUtil.ItemCallback<Character>() {
-            override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
+        private fun updateCharactersDiffCallback() = object : DiffUtil.ItemCallback<CharacterAdapterModel>() {
+            override fun areItemsTheSame(oldItem: CharacterAdapterModel, newItem: CharacterAdapterModel): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
+            override fun areContentsTheSame(oldItem: CharacterAdapterModel, newItem: CharacterAdapterModel): Boolean {
                 return oldItem == newItem
             }
         }
@@ -55,5 +53,5 @@ class CharactersAdapter(
 }
 
 interface CharacterListener {
-    fun onClickCharacterItem(character: Character)
+    fun onClickCharacterItem(characterAdapterModel: CharacterAdapterModel)
 }

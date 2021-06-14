@@ -5,7 +5,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.toloza.avengersapp.data.CoroutinesDispatcherProvider
 import com.toloza.avengersapp.data.login.LoginManager
-import com.toloza.avengersapp.data.model.User
+import com.toloza.avengersapp.data.model.internal.User
 import com.toloza.avengersapp.data.model.core.NullModel
 import com.toloza.avengersapp.service.repository.LoginRepository
 import com.toloza.avengersapp.ui.viewmodel.LoginUiModel

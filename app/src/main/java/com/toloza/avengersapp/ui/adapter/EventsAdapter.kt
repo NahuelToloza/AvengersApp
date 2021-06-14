@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.toloza.avengersapp.data.model.AvengersEvent
+import com.toloza.avengersapp.R
+import com.toloza.avengersapp.data.model.internal.AvengersEventAdapterModel
 import com.toloza.avengersapp.databinding.ItemEventBinding
+import com.toloza.avengersapp.extensions.gone
 import com.toloza.avengersapp.extensions.loadImage
-import com.toloza.avengersapp.ui.adapter.model.AvengersEventAdapterModel
+import com.toloza.avengersapp.extensions.visible
 
 class EventsAdapter(
     private val listener: EventListener
@@ -30,17 +32,31 @@ class EventsAdapter(
     class EventViewHolder(
         private val binding: ItemEventBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(avengersEvent: AvengersEventAdapterModel, listener: EventListener) =
+        fun bind(adapterModel: AvengersEventAdapterModel, listener: EventListener) =
             with(binding) {
-                val event = avengersEvent.event
+                val event = adapterModel.event
                 imgEvent.loadImage(event.imageUrl)
                 tvTitle.text = event.title
                 tvDescription.text = event.description
-                //TODO handle arrow
-                //TODO ADD OTHER RECYCLER
+                //TODO Change description for date
+
+                if (adapterModel.isExpanded) {
+                    imgArrow.setImageResource(R.drawable.ic_up_arrow)
+
+                    binding.groupComics.visible()
+                    binding.recyclerView.setRecycledViewPool(this.recyclerView.recycledViewPool)
+                    binding.recyclerView.adapter = ComicsAdapter(adapterModel.comicsAdapterModel, object : ComicsListener {
+                        override fun onClickItem() {
+                            listener.onClickEvent(adapterModel, adapterPosition)
+                        }
+                    })
+                } else {
+                    imgArrow.setImageResource(R.drawable.ic_down_arrow)
+                    binding.groupComics.gone()
+                }
 
                 root.setOnClickListener {
-                    listener.onClickEvent(event)
+                    listener.onClickEvent(adapterModel, adapterPosition)
                 }
             }
     }
@@ -59,12 +75,13 @@ class EventsAdapter(
                     oldItem: AvengersEventAdapterModel,
                     newItem: AvengersEventAdapterModel
                 ): Boolean {
-                    return oldItem.event == newItem.event
+                    return oldItem.event == newItem.event &&
+                            oldItem.isExpanded == newItem.isExpanded
                 }
             }
     }
 }
 
 interface EventListener {
-    fun onClickEvent(avengersEvent: AvengersEvent)
+    fun onClickEvent(adapterModel: AvengersEventAdapterModel, adapterPosition: Int)
 }

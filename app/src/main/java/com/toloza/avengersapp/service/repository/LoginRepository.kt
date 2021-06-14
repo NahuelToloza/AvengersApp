@@ -1,6 +1,6 @@
 package com.toloza.avengersapp.service.repository
 
-import com.toloza.avengersapp.data.model.User
+import com.toloza.avengersapp.data.model.internal.User
 import com.toloza.avengersapp.service.storage.LocalStorage
 
 class LoginRepository(

@@ -6,13 +6,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.toloza.avengersapp.R
-import com.toloza.avengersapp.data.model.AvengersEvent
+import com.toloza.avengersapp.data.model.internal.AvengersEventAdapterModel
 import com.toloza.avengersapp.databinding.FragmentHomeBinding
 import com.toloza.avengersapp.ui.adapter.EventListener
 import com.toloza.avengersapp.ui.adapter.EventsAdapter
-import com.toloza.avengersapp.ui.adapter.model.AvengersEventAdapterModel
-import com.toloza.avengersapp.ui.viewmodel.EventsUiModel
 import com.toloza.avengersapp.ui.viewmodel.EventsViewModel
+import com.toloza.avengersapp.ui.viewmodel.uimodel.events.EventsUiModel
 import com.toloza.avengersapp.util.EndlessRecyclerViewScrollListener
 import com.toloza.avengersapp.util.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -38,8 +37,13 @@ class EventsFragment: BaseFragment(R.layout.fragment_home), EventListener {
         viewModel.getEvents()
     }
 
-    override fun onClickEvent(avengersEvent: AvengersEvent) {
-        TODO("Not yet implemented")
+    override fun onClickEvent(adapterModel: AvengersEventAdapterModel, adapterPosition: Int) {
+        //val newList = viewModel.updateItem(adapterPosition)
+        adapter?.currentList?.get(adapterPosition)?.apply {
+            isExpanded = !isExpanded
+        }
+        adapter?.notifyItemChanged(adapterPosition)
+        //adapter?.submitList(newList)
     }
 
     private fun setUpAdapter(list: List<AvengersEventAdapterModel>) {

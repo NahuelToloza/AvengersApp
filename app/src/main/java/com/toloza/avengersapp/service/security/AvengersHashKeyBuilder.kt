@@ -1,7 +1,7 @@
 package com.toloza.avengersapp.service.security
 
 import com.toloza.avengersapp.BuildConfig
-import com.toloza.avengersapp.service.api.TIME_STAMP
+import com.toloza.avengersapp.service.service.TIME_STAMP
 import okhttp3.internal.and
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException

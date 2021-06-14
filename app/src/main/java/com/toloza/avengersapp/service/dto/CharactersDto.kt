@@ -1,7 +1,6 @@
 package com.toloza.avengersapp.service.dto
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class CharactersDto(
     @SerializedName("data") val data: Data
@@ -15,8 +14,6 @@ data class Character(
     @SerializedName("id") val id: Long,
     @SerializedName("name") val name: String,
     @SerializedName("description") val description: String,
-    @SerializedName("modified") val modified: Date,
-    @SerializedName("resourceURI") val resourceURI: String,
     @SerializedName("thumbnail") val thumbnail: Thumbnail
 )
 

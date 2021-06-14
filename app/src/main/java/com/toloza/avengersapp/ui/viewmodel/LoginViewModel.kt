@@ -11,6 +11,7 @@ import com.toloza.avengersapp.data.model.core.NullModel
 import com.toloza.avengersapp.data.model.core.ServerError
 import com.toloza.avengersapp.extensions.getGenericError
 import com.toloza.avengersapp.service.repository.LoginRepository
+import com.toloza.avengersapp.ui.viewmodel.uimodel.login.LoginUiModel
 import com.toloza.avengersapp.util.Event
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -54,9 +55,3 @@ class LoginViewModel(
         )
     }
 }
-
-data class LoginUiModel(
-    val launchLogin: Event<LoginBuilder>? = null,
-    val continueWithFlow: Event<NullModel>? = null,
-    val showError: Event<ServerError>? = null
-)

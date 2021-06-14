@@ -1,13 +1,15 @@
 package com.toloza.avengersapp.service.api
 
+import com.toloza.avengersapp.BuildConfig
 import com.toloza.avengersapp.data.Result
 import com.toloza.avengersapp.extensions.getGenericError
+import com.toloza.avengersapp.service.AvengersService
+import com.toloza.avengersapp.service.CHARACTER_PAGE_COUNT
+import com.toloza.avengersapp.service.EVENTS_PAGE_COUNT
 import com.toloza.avengersapp.service.dto.CharactersDto
 import com.toloza.avengersapp.service.dto.EventsDto
 import com.toloza.avengersapp.service.error.HandleHttpErrors
 import com.toloza.avengersapp.service.security.HashKeyBuilder
-import com.toloza.avengersapp.service.service.AvengersService
-import com.toloza.avengersapp.service.service.CHARACTER_PAGE_COUNT
 
 class AvengersApi(
     private val service: AvengersService,
@@ -20,11 +22,18 @@ class AvengersApi(
             hashKeyBuilder.build()
         }
 
+    private val publicKey: String
+        get() = BuildConfig.PUBLIC_KEY_AVENGERS_API
+
     suspend fun getCharacters(page: Int = 0): Result<CharactersDto> {
         val hash = hashKey
         hash?.let {
             try {
-                val result = service.getCharacters(hash = hash, offset = getOffset(page))
+                val result = service.getCharacters(
+                    hash = hash,
+                    offset = getOffset(page, CHARACTER_PAGE_COUNT),
+                    publicApiKey = publicKey
+                )
                 return Result.Success(result)
             } catch (exception: Exception) {
                 handleHttpErrors.handleApiException(exception)
@@ -39,7 +48,11 @@ class AvengersApi(
         val hash = hashKey
         hash?.let {
             try {
-                val result = service.getEvents(hash = hash, offset = getOffset(page))
+                val result = service.getEvents(
+                    hash = hash,
+                    offset = getOffset(page, EVENTS_PAGE_COUNT),
+                    publicApiKey = publicKey
+                )
                 return Result.Success(result)
             } catch (exception: Exception) {
                 handleHttpErrors.handleApiException(exception)
@@ -50,7 +63,7 @@ class AvengersApi(
         }
     }
 
-    private fun getOffset(page: Int): Int {
-        return page * CHARACTER_PAGE_COUNT
+    private fun getOffset(page: Int, pageCount: Int): Int {
+        return page * pageCount
     }
 }

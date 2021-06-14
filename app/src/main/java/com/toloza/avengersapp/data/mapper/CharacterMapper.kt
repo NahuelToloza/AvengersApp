@@ -4,7 +4,9 @@ import com.toloza.avengersapp.extensions.replaceHttpForHttps
 import com.toloza.avengersapp.service.dto.CharactersDto
 import com.toloza.avengersapp.data.model.internal.CharacterAdapterModel
 
-class CharacterMapper {
+class CharacterMapper(
+    private val comicMapper: ComicMapper
+) {
     fun toCharacterAdapterModel(charactersDto: CharactersDto): List<CharacterAdapterModel> {
         return charactersDto.data.results.map {
             val path = it.thumbnail.path.replaceHttpForHttps()
@@ -12,7 +14,8 @@ class CharacterMapper {
                 id = it.id,
                 imageUrl = "$path.${it.thumbnail.extension}",
                 title = it.name,
-                description = it.description
+                description = it.description,
+                comics = comicMapper.toComicModel(it.comics)
             )
         }
     }

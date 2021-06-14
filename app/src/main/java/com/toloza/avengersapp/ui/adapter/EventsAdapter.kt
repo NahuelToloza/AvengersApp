@@ -29,6 +29,13 @@ class EventsAdapter(
         holder.bind(currentList[holder.adapterPosition], listener)
     }
 
+    fun notifyEventClicked(adapterPosition: Int) {
+        currentList[adapterPosition].apply {
+            isExpanded = !isExpanded
+        }
+        notifyItemChanged(adapterPosition)
+    }
+
     class EventViewHolder(
         private val binding: ItemEventBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -38,25 +45,25 @@ class EventsAdapter(
                 imgEvent.loadImage(event.imageUrl)
                 tvTitle.text = event.title
                 tvDescription.text = event.description
-                //TODO Change description for date
 
                 if (adapterModel.isExpanded) {
                     imgArrow.setImageResource(R.drawable.ic_up_arrow)
 
                     binding.groupComics.visible()
                     binding.recyclerView.setRecycledViewPool(this.recyclerView.recycledViewPool)
-                    binding.recyclerView.adapter = ComicsAdapter(adapterModel.comicsAdapterModel, object : ComicsListener {
-                        override fun onClickItem() {
-                            listener.onClickEvent(adapterModel, adapterPosition)
-                        }
-                    })
+                    binding.recyclerView.adapter =
+                        ComicsAdapter(adapterModel.comicsAdapterModel, object : ComicsListener {
+                            override fun onClickItem() {
+                                listener.onClickEvent(adapterPosition)
+                            }
+                        })
                 } else {
                     imgArrow.setImageResource(R.drawable.ic_down_arrow)
                     binding.groupComics.gone()
                 }
 
                 root.setOnClickListener {
-                    listener.onClickEvent(adapterModel, adapterPosition)
+                    listener.onClickEvent(adapterPosition)
                 }
             }
     }
@@ -83,5 +90,5 @@ class EventsAdapter(
 }
 
 interface EventListener {
-    fun onClickEvent(adapterModel: AvengersEventAdapterModel, adapterPosition: Int)
+    fun onClickEvent(adapterPosition: Int)
 }

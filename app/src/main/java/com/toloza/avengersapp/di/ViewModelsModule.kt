@@ -21,7 +21,7 @@ val viewModelsModule = module {
 
     viewModel { EventsViewModel(get(), get(), get()) }
 
-    viewModel { CharacterDetailViewModel(get()) }
+    viewModel { CharacterDetailViewModel(get(), get()) }
 
     viewModel { NavigationCommunicationViewModel() }
 }

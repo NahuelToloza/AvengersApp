@@ -8,10 +8,10 @@ import com.toloza.avengersapp.data.login.LoginManager
 import com.toloza.avengersapp.data.model.internal.User
 import com.toloza.avengersapp.data.model.core.NullModel
 import com.toloza.avengersapp.service.repository.LoginRepository
-import com.toloza.avengersapp.ui.viewmodel.LoginUiModel
 import com.toloza.avengersapp.ui.viewmodel.LoginViewModel
+import com.toloza.avengersapp.ui.viewmodel.uimodel.login.LoginUiModel
 import com.toloza.avengersapp.util.Event
-import com.toloza.avengersapp.util.test.getOrAwaitValue
+import com.toloza.avengersapp.util.getOrAwaitValue
 import com.toloza.avengersapp.util.provideFakeCoroutinesDispatcherProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest

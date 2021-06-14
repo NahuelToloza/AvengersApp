@@ -9,9 +9,9 @@
         <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
-    <style name="SplashScreenTheme" parent = "Theme.AppCompat.NoActionBar">
-    <item name="android:windowBackground">@drawable/launcher_screen_with_logo</item>
-</style>
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
 
     <style name="CharacterTitleStyle">
         <item name="android:layout_width">0dp</item>

@@ -11,7 +11,9 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_LoginFragment_to_homeFragment"
-            app:destination="@id/characterFragment" />
+            app:destination="@id/characterFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
@@ -19,7 +21,11 @@
         android:label="@string/toolbar_title">
         <action
             android:id="@+id/action_characterFragment_to_characterDetail"
-            app:destination="@id/characterDetail" />
+            app:destination="@id/characterDetail"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom" />
     </fragment>
     <fragment
         android:id="@+id/eventsFragment"
@@ -27,7 +33,7 @@
         android:label="@string/toolbar_title" />
     <action
         android:id="@+id/action_global_eventsFragment"
-        app:destination="@id/eventsFragment" />
+        app:destination="@id/nav_graph" />
     <fragment
         android:id="@+id/characterDetail"
         android:name="com.toloza.avengersapp.ui.fragment.CharacterDetailFragment">

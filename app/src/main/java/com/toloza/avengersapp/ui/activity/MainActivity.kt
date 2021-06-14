@@ -21,7 +21,6 @@ import com.toloza.avengersapp.util.viewBinding
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class MainActivity : AppCompatActivity(), HomeNavigationListener {
     private val communicationViewModel by viewModel<LoginCommunicationViewModel>()
     private val navigationViewModel by viewModel<NavigationCommunicationViewModel>()

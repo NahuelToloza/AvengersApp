@@ -8,5 +8,6 @@ data class CharacterAdapterModel(
     val id: Long,
     val imageUrl: String,
     val title: String,
-    val description: String
+    val description: String,
+    val comics: List<ComicModel>
 ): Parcelable

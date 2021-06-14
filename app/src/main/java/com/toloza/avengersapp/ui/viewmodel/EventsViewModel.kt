@@ -46,12 +46,6 @@ class EventsViewModel(
         }
     }
 
-    fun updateItem(adapterPosition: Int): List<AvengersEventAdapterModel> {
-        val newList = eventsList.toList()
-        newList[adapterPosition].isExpanded = !newList[adapterPosition].isExpanded
-        return newList
-    }
-
     private suspend fun showLoading() {
         emitUiModel(showLoading = true)
     }

@@ -17,11 +17,3 @@ class Event(
     @SerializedName("comics") val comics: Comic,
     @SerializedName("thumbnail") val thumbnail: Thumbnail
 )
-
-class Comic(
-    @SerializedName("items") val items: List<ComicItem>,
-)
-
-class ComicItem(
-    @SerializedName("name") val name: String
-)

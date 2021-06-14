@@ -13,7 +13,7 @@ class AvengersRepository(
         return api.getCharacters(page)
     }
 
-    suspend fun getEvents(page: Int): Result<EventsDto> {
+    suspend fun getEvents(page: Int = 0): Result<EventsDto> {
         return api.getEvents(page)
     }
 }

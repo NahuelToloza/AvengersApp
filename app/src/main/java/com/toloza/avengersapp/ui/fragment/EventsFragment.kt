@@ -37,13 +37,8 @@ class EventsFragment: BaseFragment(R.layout.fragment_home), EventListener {
         viewModel.getEvents()
     }
 
-    override fun onClickEvent(adapterModel: AvengersEventAdapterModel, adapterPosition: Int) {
-        //val newList = viewModel.updateItem(adapterPosition)
-        adapter?.currentList?.get(adapterPosition)?.apply {
-            isExpanded = !isExpanded
-        }
-        adapter?.notifyItemChanged(adapterPosition)
-        //adapter?.submitList(newList)
+    override fun onClickEvent(adapterPosition: Int) {
+        adapter?.notifyEventClicked(adapterPosition)
     }
 
     private fun setUpAdapter(list: List<AvengersEventAdapterModel>) {

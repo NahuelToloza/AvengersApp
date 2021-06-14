@@ -14,7 +14,8 @@ data class Character(
     @SerializedName("id") val id: Long,
     @SerializedName("name") val name: String,
     @SerializedName("description") val description: String,
-    @SerializedName("thumbnail") val thumbnail: Thumbnail
+    @SerializedName("thumbnail") val thumbnail: Thumbnail,
+    @SerializedName("comics") val comics: Comic
 )
 
 data class Thumbnail(

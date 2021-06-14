@@ -2,8 +2,8 @@ package com.toloza.avengersapp.di
 
 import android.app.Application
 import android.content.SharedPreferences
+import com.toloza.avengersapp.service.AvengersService
 import com.toloza.avengersapp.service.api.AvengersApi
-import com.toloza.avengersapp.service.service.AvengersService
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor

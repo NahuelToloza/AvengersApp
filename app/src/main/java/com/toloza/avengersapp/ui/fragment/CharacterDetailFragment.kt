@@ -7,10 +7,11 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.toloza.avengersapp.R
 import com.toloza.avengersapp.databinding.FragmentHomeBinding
+import com.toloza.avengersapp.extensions.getActualColor
 import com.toloza.avengersapp.ui.adapter.ComicsAdapter
 import com.toloza.avengersapp.ui.viewmodel.CharacterDetailViewModel
-import com.toloza.avengersapp.ui.viewmodel.uimodel.detail.ComicsAdapterModel
 import com.toloza.avengersapp.ui.viewmodel.uimodel.detail.CharacterDetailUiModel
+import com.toloza.avengersapp.ui.viewmodel.uimodel.detail.ComicsAdapterModel
 import com.toloza.avengersapp.util.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,8 +42,9 @@ class CharacterDetailFragment : BaseFragment(R.layout.fragment_home) {
         return false
     }
 
-    private fun showInfoDetail(detailModel: ComicsAdapterModel) {
-        binding.recyclerView.adapter = ComicsAdapter(detailModel)
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+    private fun showInfoDetail(detailModel: ComicsAdapterModel) = binding.recyclerView.apply {
+        adapter = ComicsAdapter(detailModel)
+        layoutManager = LinearLayoutManager(context)
+        setBackgroundColor(context.getActualColor(R.color.white))
     }
 }

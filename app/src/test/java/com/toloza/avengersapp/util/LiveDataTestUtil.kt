@@ -1,4 +1,4 @@
-package com.toloza.avengersapp.util.test
+package com.toloza.avengersapp.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer

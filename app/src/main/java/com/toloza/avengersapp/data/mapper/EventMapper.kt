@@ -8,7 +8,9 @@ import com.toloza.avengersapp.extensions.replaceHttpForHttps
 import com.toloza.avengersapp.service.dto.EventsDto
 import com.toloza.avengersapp.ui.viewmodel.uimodel.detail.ComicsAdapterModel
 
-class EventMapper {
+class EventMapper(
+    private val comicMapper: ComicMapper
+) {
     fun toEventAdapterModel(eventDao: EventsDto): List<AvengersEventAdapterModel> {
         return eventDao.data.results.map {
             val path = it.thumbnail.path.replaceHttpForHttps()
@@ -20,12 +22,7 @@ class EventMapper {
                 description = it.description
             )
 
-            val comics = it.comics.items.map { comic ->
-                ComicModel(
-                    name = comic.name,
-                    year = comic.name.findBetweenParenthesis()
-                )
-            }
+            val comics = comicMapper.toComicModel(it.comics)
             AvengersEventAdapterModel(
                 event = event,
                 comicsAdapterModel = ComicsAdapterModel(comics = comics)
